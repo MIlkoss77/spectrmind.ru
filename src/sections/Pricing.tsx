@@ -84,7 +84,7 @@ function Countdown() {
     return () => clearInterval(timer);
   }, []);
 
-  const formatTime = (value) => String(value).padStart(2, '0');
+  const formatTime = (value: number) => String(value).padStart(2, '0');
 
   return (
     <div className="text-center mb-12">
