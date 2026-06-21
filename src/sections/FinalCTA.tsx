@@ -158,7 +158,7 @@ export default function FinalCTA() {
                 </div>
               </div>
               <a
-                href="/free_neuro_guide.pdf"
+                href="/free_neuro_guideru.pdf"
                 download
                 className="inline-flex items-center gap-2 px-6 py-3 bg-spectr-cyan text-black font-heading font-semibold text-sm rounded transition-all duration-300 hover:bg-spectr-electric hover:shadow-glow"
                 style={{ borderRadius: '4px' }}
