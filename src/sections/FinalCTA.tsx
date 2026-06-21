@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Lock, Shield, Zap, Mail } from 'lucide-react';
+import { Lock, Shield, Zap, Mail, Download, Loader2 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
+
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzcqezF1Z1utDSv3ihFNa3SO-Qcx-5SoNRojdPQZKvlBYo-_URtYlgebsgiNcfGzpYUZg/exec';
 
 const trustItems = [
   { icon: Lock, text: 'SSL-шифрование' },
@@ -13,11 +15,29 @@ export default function FinalCTA() {
   const [email, setEmail] = useState('');
   const [agreed, setAgreed] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email && agreed) {
+    if (!email || !agreed) return;
+
+    setLoading(true);
+    setError('');
+
+    try {
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
       setSubmitted(true);
+    } catch {
+      setError('Произошла ошибка. Попробуй ещё раз.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -79,11 +99,18 @@ export default function FinalCTA() {
               </div>
               <button
                 type="submit"
-                disabled={!agreed}
-                className="h-12 px-6 bg-spectr-cyan text-black font-heading font-semibold text-sm rounded transition-all duration-300 hover:bg-spectr-electric hover:shadow-glow disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
+                disabled={!agreed || loading}
+                className="h-12 px-6 bg-spectr-cyan text-black font-heading font-semibold text-sm rounded transition-all duration-300 hover:bg-spectr-electric hover:shadow-glow disabled:opacity-50 disabled:cursor-not-allowed shrink-0 flex items-center gap-2"
                 style={{ borderRadius: '4px' }}
               >
-                Получить бесплатный гайд
+                {loading ? (
+                  <>
+                    <Loader2 size={16} className="animate-spin" />
+                    Отправка...
+                  </>
+                ) : (
+                  'Получить бесплатный гайд'
+                )}
               </button>
             </div>
 
@@ -104,6 +131,12 @@ export default function FinalCTA() {
                 ФЗ-152
               </span>
             </label>
+
+            {error && (
+              <p className="text-sm text-red-400 max-w-md mx-auto text-left">
+                {error}
+              </p>
+            )}
           </motion.form>
         ) : (
           <motion.div
@@ -112,16 +145,27 @@ export default function FinalCTA() {
             transition={{ duration: 0.5 }}
             className="py-8"
           >
-            <div className="inline-flex items-center gap-3 px-6 py-4 border border-spectr-cyan/30 bg-spectr-cyan/5">
-              <Zap size={24} className="text-spectr-cyan" />
-              <div className="text-left">
-                <p className="font-heading font-semibold text-txt-primary">
-                  Гайд отправлен!
-                </p>
-                <p className="text-sm text-txt-secondary">
-                  Проверь свою почту в ближайшие минуты.
-                </p>
+            <div className="inline-flex flex-col items-center gap-4 px-6 py-4 border border-spectr-cyan/30 bg-spectr-cyan/5">
+              <div className="flex items-center gap-3">
+                <Zap size={24} className="text-spectr-cyan" />
+                <div className="text-left">
+                  <p className="font-heading font-semibold text-txt-primary">
+                    Гайд готов к скачиванию!
+                  </p>
+                  <p className="text-sm text-txt-secondary">
+                    Нажми кнопку ниже, чтобы скачать PDF.
+                  </p>
+                </div>
               </div>
+              <a
+                href="/free_neuro_guide.pdf"
+                download
+                className="inline-flex items-center gap-2 px-6 py-3 bg-spectr-cyan text-black font-heading font-semibold text-sm rounded transition-all duration-300 hover:bg-spectr-electric hover:shadow-glow"
+                style={{ borderRadius: '4px' }}
+              >
+                <Download size={16} />
+                Скачать бесплатный гайд
+              </a>
             </div>
           </motion.div>
         )}
