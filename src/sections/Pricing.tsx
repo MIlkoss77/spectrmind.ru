@@ -6,38 +6,68 @@ import { useEffect, useState } from 'react';
 const tiers = [
   {
     name: 'Нейро-Хакер',
-    nameEn: 'NEURO-HACKER',
-    priceMonthly: '1 990',
-    oldPrice: '5 990',
-    periodMonthly: '/мес',
-    description: 'Идеальный старт для погружения в мир когнитивной оптимизации',
+    nameEn: 'НЕЙРО-ХАКЕР',
+    price: '1 990',
+    oldPrice: '3 990',
+    period: 'Разово',
+    description: 'Идеальный старт',
     features: [
-      'Доступ к Академии',
-      'Медитации и нейротренинги',
-      'PWA Neurotracker',
-      'Закрытое сообщество',
-      'Ежемесячные вебинары',
+      'Протокол №1: Пептидный циклинг',
+      'Протокол №2: Дофаминовый детокс',
+      'Протокол №3: Матрица решений',
+      'Протокол №4: Архитектура сна',
+      'Протокол №5: НЛП и инженерия аффирмаций',
     ],
-    cta: 'Подписаться',
+    cta: 'Купить базу',
     popular: false,
   },
   {
-    name: 'Apex Predator',
-    nameEn: 'APEX PREDATOR',
-    priceMonthly: '4 990',
-    oldPrice: '8 990',
-    periodMonthly: '/мес',
-    description: 'Максимальный результат через персональную нейро-оптимизацию',
+    name: 'SPECTR CLUB',
+    nameEn: 'SPECTR CLUB',
+    price: '990',
+    oldPrice: '2 990',
+    period: '/месяц',
+    description: 'Ежедневная практика',
     features: [
-      'Всё из Neuro-Hacker',
-      'Pro Decision Lab',
-      '✓ 1-on-1 нейро-сессии с квалифицированным психологом',
-      '  (1 раз в неделю, 60 минут)',
-      'Приоритетная поддержка',
-      'Эксклюзивные протоколы',
-      'Ранний доступ к новинкам',
+      'Закрытый Telegram-канал',
+      'Ежедневные микро-протоколы',
+      'Еженедельные голосовые чаты',
+      'Личная поддержка',
+      'Комьюнити единомышленников',
     ],
-    cta: 'Разблокировать Apex',
+    cta: 'Купить доступ в клуб',
+    popular: false,
+  },
+  {
+    name: 'База + 1 неделя клуба',
+    nameEn: 'БАЗА + КЛУБ',
+    price: '2 490',
+    oldPrice: '3 990',
+    period: '',
+    description: 'Идеальный старт + пробный доступ',
+    features: [
+      'Всё из базы',
+      '7 дней доступа в закрытый Telegram-клуб',
+      'Бесплатная сессия с психологом',
+    ],
+    cta: 'Купить базу + клуб',
+    popular: false,
+  },
+  {
+    name: 'Нейро-Мастер',
+    nameEn: 'НЕЙРО-МАСТЕР',
+    price: '4 990',
+    oldPrice: '13 970',
+    period: '',
+    description: 'Максимальный результат',
+    features: [
+      'Всё из тарифа «Нейро-Хакер»',
+      '1 месяц доступа в SPECTR CLUB',
+      'Личная нейро-сессия с психологом (60 мин)',
+      'Приоритетная поддержка',
+      'Ранний доступ к новым продуктам',
+    ],
+    cta: 'Разблокировать Нейро-Мастера',
     popular: true,
   },
 ];
@@ -230,9 +260,11 @@ export default function Pricing() {
                 </div>
                 <div className="flex items-baseline gap-1">
                   <span className="font-mono text-4xl font-bold text-txt-primary">
-                    {tier.priceMonthly} ₽
+                    {tier.price} ₽
                   </span>
-                  <span className="text-txt-muted text-sm">{tier.periodMonthly}</span>
+                  {tier.period && (
+                    <span className="text-txt-muted text-sm">{tier.period}</span>
+                  )}
                 </div>
               </div>
 
