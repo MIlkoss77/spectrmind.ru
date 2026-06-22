@@ -121,9 +121,14 @@ export default function Footer() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <p className="font-mono text-xs text-txt-muted">
-              © 2026 SpectrMind. Все права защищены.
-            </p>
+            <div>
+              <p className="font-mono text-xs text-txt-muted">
+                © 2026 SpectrMind. Все права защищены.
+              </p>
+              <p className="font-mono text-xs text-txt-muted mt-1">
+                Дороненко Владислав Сергеевич | ИНН 463245967103
+              </p>
+            </div>
           </div>
         </motion.div>
       </div>
