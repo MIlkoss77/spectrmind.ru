@@ -56,16 +56,18 @@ const tiers = [
   {
     name: 'Нейро-Мастер',
     nameEn: 'НЕЙРО-МАСТЕР',
-    price: '4 990',
-    oldPrice: '13 970',
+    price: '9 990',
+    oldPrice: '19 980',
     period: '',
     description: 'Максимальный результат',
     features: [
       'Всё из тарифа «Нейро-Хакер»',
-      '1 месяц доступа в SPECTR CLUB',
-      'Личная нейро-сессия с психологом (60 мин)',
-      'Приоритетная поддержка',
-      'Ранний доступ к новым продуктам',
+      '3 месяца доступа в SPECTR CLUB (вместо 1)',
+      '2 персональные сессии с нейропсихологом (60 мин)',
+      'Индивидуальный план нейро-оптимизации',
+      'Разбор биомаркеров и supplement stack',
+      'Приоритетная поддержка 24/7 (3 месяца)',
+      'Ранний доступ ко всем новым продуктам',
     ],
     cta: 'Разблокировать Нейро-Мастера',
     popular: true,
@@ -228,6 +230,27 @@ export default function Pricing() {
                     <Star size={12} className="mr-1" />
                     ПОПУЛЯРНЫЙ
                   </Badge>
+                </div>
+              )}
+
+              {/* Neon Glow Discount Badge */}
+              {tier.popular && (
+                <div
+                  className="absolute -top-3 -right-3"
+                  style={{
+                    background: 'linear-gradient(135deg, #00FFFF, #A855F7)',
+                    color: '#000',
+                    fontFamily: '"JetBrains Mono", monospace',
+                    fontSize: '11px',
+                    fontWeight: 700,
+                    padding: '6px 14px',
+                    letterSpacing: '0.05em',
+                    boxShadow: '0 0 10px rgba(0, 255, 255, 0.6), 0 0 30px rgba(168, 85, 247, 0.4), 0 0 60px rgba(0, 255, 255, 0.2)',
+                    animation: 'neon-pulse 2s ease-in-out infinite',
+                    zIndex: 10,
+                  }}
+                >
+                  СКИДКА −50%
                 </div>
               )}
 

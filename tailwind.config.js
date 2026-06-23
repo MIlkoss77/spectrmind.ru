@@ -87,6 +87,14 @@ module.exports = {
           "0%,70%,100%": { opacity: "1" },
           "20%,50%": { opacity: "0" },
         },
+        "neon-pulse": {
+          "0%, 100%": {
+            boxShadow: "0 0 10px rgba(0, 255, 255, 0.6), 0 0 30px rgba(168, 85, 247, 0.4), 0 0 60px rgba(0, 255, 255, 0.2)",
+          },
+          "50%": {
+            boxShadow: "0 0 20px rgba(0, 255, 255, 0.9), 0 0 50px rgba(168, 85, 247, 0.7), 0 0 90px rgba(0, 255, 255, 0.4)",
+          },
+        },
         "pulse-glow": {
           "0%, 100%": { opacity: "0.4" },
           "50%": { opacity: "1" },
