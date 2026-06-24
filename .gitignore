@@ -2,3 +2,6 @@
 .next/
 .env
 *.log
+
+script-generator.html
+post-generator.html
