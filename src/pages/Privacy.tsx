@@ -90,7 +90,7 @@ export default function Privacy() {
             <p>
               По вопросам, связанным с обработкой персональных данных, обращайтесь:
               <br />
-              Email: privacy@spectrmind.ru
+              Email: spectrtradinglab@gmail.com
               <br />
               Дороненко В.С., ИНН 463245967103
             </p>
