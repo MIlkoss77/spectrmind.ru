@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPECTR - Post Generator</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0A0A0F;color:#fff;font-family:system-ui,sans-serif;min-height:100vh;padding:24px}
+h1{font-size:28px;font-weight:700;margin-bottom:4px}
+.sub{color:#6B6B7B;margin-bottom:24px;font-size:14px}
+.controls{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:20px}
+.control{display:flex;flex-direction:column;gap:6px}
+label{font-size:11px;font-family:monospace;color:#6B6B7B;text-transform:uppercase;letter-spacing:.1em}
+select{background:#13131A;border:1px solid rgba(255,255,255,.1);color:#fff;padding:8px 12px;font-size:13px;border-radius:4px;cursor:pointer}
+select:hover{border-color:rgba(0,255,255,.4)}
+.btn-group{display:flex;gap:6px}
+.btn-group button{background:#13131A;border:1px solid rgba(255,255,255,.1);color:#A0A0B0;padding:6px 12px;font-size:12px;font-family:monospace;border-radius:4px;cursor:pointer}
+.btn-group button:hover{border-color:rgba(0,255,255,.4)}
+.btn-active{background:#00FFFF!important;color:#000!important;border-color:#00FFFF!important}
+.output{background:#13131A;border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:20px;position:relative}
+.output pre{white-space:pre-wrap;font-size:13px;line-height:1.6;color:#A0A0B0}
+.copy-btn{position:absolute;top:12px;right:12px;background:#1C1C24;border:1px solid rgba(255,255,255,.1);color:#A0A0B0;padding:6px 14px;font-size:11px;font-family:monospace;border-radius:4px;cursor:pointer}
+.copy-btn:hover{border-color:#00FFFF;color:#00FFFF}
+.structure{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+.structure span{padding:4px 12px;font-size:11px;font-family:monospace;background:rgba(0,255,255,.1);color:#00FFFF;border:1px solid rgba(0,255,255,.2);border-radius:4px}
+.hashtags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.hashtags span{padding:3px 8px;font-size:11px;font-family:monospace;color:#6B6B7B;border:1px solid rgba(255,255,255,.05);border-radius:4px;cursor:pointer}
+.hashtags span:hover{color:#00FFFF;border-color:rgba(0,255,255,.3)}
+</style>
+</head>
+<body>
+<h1>Генератор постов</h1>
+<p class="sub">AIDA &middot; PAS &middot; Before-After-Bridge &middot; 4U</p>
+<div class="controls">
+<div class="control">
+<label>Формула</label>
+<div class="btn-group" id="formulaBtns">
+<button class="btn-active" data-val="aida">AIDA</button>
+<button data-val="pas">PAS</button>
+<button data-val="bab">BAB</button>
+<button data-val="four-u">4U</button>
+</div>
+</div>
+<div class="control">
+<label>Платформа</label>
+<div class="btn-group" id="platformBtns">
+<button class="btn-active" data-val="instagram">Instagram</button>
+<button data-val="vk">VK</button>
+<button data-val="youtube">YouTube</button>
+</div>
+</div>
+<div class="control">
+<label>Тема</label>
+<select id="topic">
+<option>Почему ты устаешь к обеду</option>
+<option>3 привычки, которые убивают фокус</option>
+<option>Как восстановить дофамин за 7 дней</option>
+<option>Архитектура сна: протокол на 14 дней</option>
+<option>Ноотропы: что работает, а что нет</option>
+<option>Утренняя рутина для суперфокуса</option>
+<option>Как перестать отвлекаться</option>
+<option>Стресс как топливо: хакерство кортизола</option>
+</select>
+</div>
+</div>
+<div class="structure" id="structure"></div>
+<div class="output" style="margin-top:16px">
+<button class="copy-btn" onclick="copyOutput()">Копировать</button>
+<pre id="output"></pre>
+</div>
+<div style="font-size:11px;font-family:monospace;color:#6B6B7B;text-transform:uppercase;letter-spacing:.1em;margin:20px 0 12px">Хештеги</div>
+<div class="hashtags" id="hashtags"></div>
+<script>
+const F={aida:{name:"AIDA",structure:["Attention","Interest","Desire","Action"]},pas:{name:"PAS",structure:["Problem","Agitate","Solution"]},bab:{name:"BAB",structure:["Before","After","Bridge"]},"four-u":{name:"4U",structure:["Useful","Urgent","Unique","Ultra-specific"]}};
+const P={aida:{instagram:"{topic}\n\nТы замечал, как сложно сосредоточиться, когда телефон пингует каждые 5 минут?\n\nКаждый день мы теряем 2-3 часа продуктивности из-за неправильной работы дофаминовой системы. Это не лень - это нейробиология.\n\nПредставь: ты просыпаешься бодрым, фокус держится до обеда, а вечером засыпаешь за 15 минут. Это реальность с протоколами из нейрогайда.\n\nЗабери бесплатный протокол дофаминового детокса - ссылка в шапке\n\n#нейрогайд #продуктивность #фокус #концентрация #нейронаука #саморазвитие #дофамин #медитация",vk:"{topic}\n\nЗнакомо: сел за работу, через 20 минут уже в телефоне? Не ты виноват - твоя дофаминовая система сбилась.\n\nКаждый скроллинг - это micro-награда, которая обнуляет твой фокус.\n\nРешение - протокол дофаминового детокса. 7 дней. Без таблеток. Результат на второй день.\n\nПолный протокол - в нейрогайде. Ссылка в закреплённом комментарии.\n\n#нейрогайд #продуктивность #фокус #концентрация #нейронаука #саморазвитие #дофамин #медитация #сон #ноотропы #протоколы #мозг #оптимизация #биохакинг #спектр",youtube:"{topic}\n\nВ этом Shorts я покажу 3 признака того, что твой дофаминовый контур нуждается в перезагрузке.\n\n1. Не можешь читать больше 10 минут.\n2. Засыпаешь больше 30 минут.\n3. Утром нужен кофеин до пробуждения.\n\nПолный протокол - в нейрогайде. Ссылка в описании.\n\n#нейрогайд #продуктивность #фокус #концентрация #нейронаука #дофамин"},pas:{instagram:"{topic}\n\nТвоя проблема: ты не можешь сосредоточиться дольше 20 минут.\n\nКаждый день ты теряешь 3 часа продуктивности. За месяц - 90 часов. За год - целая рабочая неделя в скроллинге.\n\nРешение: протокол восстановления дофамина из нейрогайда. 7 дней. Без таблеток. Фокус на 3+ часа.\n\nЗабери бесплатно - ссылка в шапке\n\n#нейрогайд #продуктивность #фокус #концентрация #нейронаука #саморазвитие #дофамин #медитация",vk:"{topic}\n\nПроблема: ты устаёшь к обеду и не можешь ничего сделать после 16:00.\n\nУсиление: это не возраст и не лень. Это перегруженная дофаминовая система.\n\nРешение: протокол из нейрогайда. 7 дней. Без таблеток. Результат на второй день.\n\nСсылка в закреплённом комментарии.\n\n#нейрогайд #продуктивность #фокус #концентрация #нейронаука #саморазвитие #дофамин #медитация #сон #ноотропы #протоколы #мозг #оптимизация #биохакинг #спектр",youtube:"{topic}\n\nПроблема: не можешь сосредоточиться.\nУсиление: теряешь 3 часа каждый день.\nРешение: протокол дофаминового детокса. 7 дней.\n\nНейрогайд - ссылка в описании.\n\n#нейрогайд #продуктивность #фокус #концентрация #нейронаука #дофамин"},bab:{instagram:"До vs После: {topic}\n\nДО:\n- Встаёшь в 10, зомби до обеда\n- Не можешь читать дольше 10 минут\n- Засыпаешь в 2 часа ночи\n\nПОСЛЕ (через 14 дней):\n- Встаёшь в 6:30 бодрым\n- Фокус 3+ часа без перерывов\n- Засыпаешь за 15 минут\n\nМост: 2 протокола из нейрогайда. Архитектура сна + утренний свет.\n\nХочешь так же? Ссылка в шапке\n\n#нейрогайд #продуктивность #фокус #концентрация #нейронаука #саморазвитие #дофамин #медитация",vk:"{topic}\n\nБыло:\n- Утром кофеин, чтобы встать\n- К обеду - зомби\n- Вечером - сон в 2 часа\n\nСтало (через 14 дней):\n- Утром - бодрость без будильника\n- Днём - фокус до обеда\n- Вечером - засыпаю за 15 минут\n\nКак? 2 протокола из нейрогайда.\n\nСсылка в закреплённом комментарии.\n\n#нейрогайд #продуктивность #фокус #концентрация #нейронаука #саморазвитие #дофамин #медитация #сон #ноотропы #протоколы #мозг #оптимизация #биохакинг #спектр",youtube:"{topic}\n\nДо: зомби до обеда, засыпаю в 2 часа.\nПосле: бодрость с 6:30, фокус 3+ часа.\n\nМост: протоколы из нейрогайда. Ссылка в описании.\n\n#нейрогайд #продуктивность #фокус #концентрация #нейронаука #дофамин"},"four-u":{instagram:"{topic} - Полезно, Срочно, Уникально, Конкретно\n\nПОЛЕЗНО: 3 привычки, которые мгновенно улучшают концентрацию.\n\nСРОЧНО: Каждый день промедления = 3 часа потерянной продуктивности.\n\nУНИКАЛЬНО: Протоколы основаны на нейронауке, а не на мотивашках.\n\nКОНКРЕТНО: Утренний свет 10 мин - дофамин +40%. Без кофеина первые 90 минут.\n\nПолные протоколы - ссылка в шапке\n\n#нейрогайд #продуктивность #фокус #концентрация #нейронаука #саморазвитие #дофамин #медитация",vk:"{topic}\n\nПолезно: 3 привычки для концентрации.\nСрочно: Каждый день = 3 часа потерянной продуктивности.\nУникально: Научные протоколы, не мотивация.\nКонкретно: Утренний свет 10 мин - дофамин +40%.\n\nСсылка в закреплённом комментарии.\n\n#нейрогайд #продуктивность #фокус #концентрация #нейронаука #саморазвитие #дофамин #медитация #сон #ноотропы #протоколы #мозг #оптимизация #биохакинг #спектр",youtube:"{topic}\n\nПолезно: 3 привычки для фокуса.\nСрочно: Теряешь 3 часа каждый день.\nУникально: Научный подход.\nКонкретно: Свет 10 мин = дофамин +40%.\n\nНейрогайд - ссылка в описании.\n\n#нейрогайд #продуктивность #фокус #концентрация #нейронаука #дофамин"}}};
+const H=["#нейрогайд","#продуктивность","#фокус","#концентрация","#нейронаука","#саморазвитие","#дофамин","#медитация","#сон","#ноотропы","#протоколы","#когнитивныефункции","#мозг","#оптимизация","#биохакинг","#спектр"];
+let cF="aida",cP="instagram";
+function init(){document.getElementById("formulaBtns").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;cF=b.dataset.val;document.querySelectorAll("#formulaBtns button").forEach(x=>x.classList.remove("btn-active"));b.classList.add("btn-active");render()});document.getElementById("platformBtns").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;cP=b.dataset.val;document.querySelectorAll("#platformBtns button").forEach(x=>x.classList.remove("btn-active"));b.classList.add("btn-active");render()});document.getElementById("topic").addEventListener("change",render);const he=document.getElementById("hashtags");H.forEach(h=>{const s=document.createElement("span");s.textContent=h;s.onclick=()=>{navigator.clipboard.writeText(h);s.style.color="#00FFFF";setTimeout(()=>s.style.color="",1000)};he.appendChild(s)});render()}
+function render(){document.getElementById("structure").innerHTML=F[cF].structure.map(s=>"<span>"+s+"</span>").join("");document.getElementById("output").textContent=P[cF][cP].replace(/\{topic\}/g,document.getElementById("topic").value)}
+function copyOutput(){navigator.clipboard.writeText(document.getElementById("output").textContent).then(()=>{const b=document.querySelector(".copy-btn");b.textContent="Скопировано!";setTimeout(()=>b.textContent="Копировать",2000)})}
+init();
+</script>
+</body>
+</html>

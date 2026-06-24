@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPECTR - Script Generator</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0A0A0F;color:#fff;font-family:system-ui,sans-serif;min-height:100vh;padding:24px}
+h1{font-size:28px;font-weight:700;margin-bottom:4px}
+.sub{color:#6B6B7B;margin-bottom:24px;font-size:14px}
+.controls{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:20px}
+.control{display:flex;flex-direction:column;gap:6px}
+label{font-size:11px;font-family:monospace;color:#6B6B7B;text-transform:uppercase;letter-spacing:.1em}
+select{background:#13131A;border:1px solid rgba(255,255,255,.1);color:#fff;padding:8px 12px;font-size:13px;border-radius:4px;cursor:pointer}
+select:hover{border-color:rgba(0,255,255,.4)}
+.btn-group{display:flex;gap:6px}
+.btn-group button{background:#13131A;border:1px solid rgba(255,255,255,.1);color:#A0A0B0;padding:6px 12px;font-size:12px;font-family:monospace;border-radius:4px;cursor:pointer}
+.btn-group button:hover{border-color:rgba(0,255,255,.4)}
+.btn-active{background:#00FFFF!important;color:#000!important;border-color:#00FFFF!important}
+.output{background:#13131A;border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:20px;position:relative}
+.output pre{white-space:pre-wrap;font-size:13px;line-height:1.6;color:#A0A0B0}
+.copy-btn{position:absolute;top:12px;right:12px;background:#1C1C24;border:1px solid rgba(255,255,255,.1);color:#A0A0B0;padding:6px 14px;font-size:11px;font-family:monospace;border-radius:4px;cursor:pointer}
+.copy-btn:hover{border-color:#00FFFF;color:#00FFFF}
+.section-title{font-size:11px;font-family:monospace;color:#6B6B7B;text-transform:uppercase;letter-spacing:.1em;margin:20px 0 12px}
+.templates{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.template-card{background:#13131A;border:1px solid rgba(255,255,255,.1);padding:12px;border-radius:4px;cursor:pointer;transition:all .2s}
+.template-card:hover{border-color:rgba(0,255,255,.4)}
+.template-card.active{border-color:#00FFFF;background:rgba(0,255,255,.05)}
+.template-card p{font-size:13px;font-weight:600}
+.template-card span{font-size:11px;color:#6B6B7B}
+</style>
+</head>
+<body>
+<h1>Генератор скриптов</h1>
+<p class="sub">Рилсы &middot; Карусели &middot; Shorts</p>
+<div class="controls">
+<div class="control">
+<label>Формат</label>
+<div class="btn-group" id="formatBtns">
+<button class="btn-active" data-val="reels">Reels</button>
+<button data-val="carousel">Карусель</button>
+<button data-val="shorts">Shorts</button>
+</div>
+</div>
+<div class="control">
+<label>Тема</label>
+<select id="topic">
+<option>Дофаминовый детокс</option>
+<option>Архитектура сна</option>
+<option>Утренняя рутина</option>
+<option>Продуктивность</option>
+<option>Концентрация и фокус</option>
+<option>Медитация</option>
+<option>Ноотропы и добавки</option>
+<option>Физика и мозг</option>
+<option>Стресс-менеджмент</option>
+<option>Когнитивные искажения</option>
+</select>
+</div>
+</div>
+<div class="section-title">Тип скрипта</div>
+<div class="templates" id="typeTemplates"></div>
+<div class="output" style="margin-top:20px">
+<button class="copy-btn" onclick="copyOutput()">Копировать</button>
+<pre id="output"></pre>
+</div>
+<script>
+const TEMPLATES={"problem-solution":{name:"Проблема → Решение",structure:["HOOK (0-1.5с): Провокационный вопрос","PROBLEM (1.5-5с): Опиши боль аудитории","AGITATE (5-10с): Усили проблему","SOLUTION (10-25с): Протокол из нейрогайда","CTA (25-30с): Ссылка в шапке"],example:["Знаешь, почему ты не можешь сосредоточиться дольше 20 минут?","Твой дофаминовый контур выгорел из-за бесконечного скроллинга.","Каждый день ты теряешь 3 часа продуктивности.","Протокол дофаминового детокса из нейрогайда восстанавливает фокус за 7 дней.","Ссылка в шапке - забери бесплатный протокол."]},"myths-reality":{name:"Мифы vs Реальность",structure:["HOOK: Тебя обманывают","MYTH 1: Распространённое заблуждение","REALITY 1: Что говорит наука","MYTH 2: Ещё одно заблуждение","REALITY 2: Реальность","CTA: Ссылка в шапке"],example:["Тебя обманывают关于 кофеин и продуктивность.","Миф: Кофеин даёт энергию. Реальность: он блокирует аденозин.","Миф: Нужно 8 часов сна. Реальность: оптимум от 6 до 9.","Миф: Медитация - это расслабление. Реальность - тренировка внимания.","Правда в нейрогайде. Ссылка в шапке."]},"before-after":{name:"До / После",structure:["HOOK: Вот что случилось через 30 дней","BEFORE: Опиши старое состояние","BRIDGE: Что изменил","AFTER: Новое состояние","CTA: Хочешь так же?"],example:["Вот что случилось с моей продуктивностью за 30 дней.","Было: встаю в 10, зомби до обеда, засыпаю в 2 часа ночи.","Добавил 2 протокола: архитектура сна + утренний свет.","Стало: встаю в 6:30 бодрым, фокус до обеда, засыпаю за 15 минут.","Хочешь так же? Нейрогайд - ссылка в шапке."]},"list":{name:"Список (3-5 советов)",structure:["HOOK: N вещей, которые убивают концентрацию","ITEM 1: Совет + объяснение","ITEM 2: Совет + объяснение","ITEM 3: Совет + объяснение","BONUS: Ещё протоколов в нейрогайде","CTA: Ссылка в шапке"],example:["3 вещи, которые убивают твою концентрацию каждое утро.","1. Проверка телефона в первые 30 минут - убивает дофаминовый всплеск.","2. Отсутствие утреннего света - мелатонин не выключается.","3. Кофеин до 90 минут после пробуждения - блокирует кортизол.","В нейрогайде ещё 12 протоколов для оптимизации.","Ссылка в шапке - забери бесплатно."]},"storytime":{name:"Storytime (личная история)",structure:["HOOK: Я чуть не бросил всё","CONTEXT: Расскажи ситуацию","TURNING POINT: Что нашёл","LESSON: Что извлёк","CTA: Весь путь в нейрогайде"],example:["Я чуть не бросил бизнес из-за выгорания.","3 месяца работал по 14 часов, не мог спать.","Нашёл протокол архитектуры сна - за неделю вернул нормальный отдых.","Сон - это не слабость. Это топливо для мозга.","Весь мой путь оптимизации - в нейрогайде. Ссылка в шапке."]}};
+let currentFormat="reels",currentType="problem-solution";
+function init(){const c=document.getElementById("typeTemplates");Object.entries(TEMPLATES).forEach(([k,t])=>{const d=document.createElement("div");d.className="template-card"+(k===currentType?" active":"");d.dataset.type=k;d.innerHTML="<p>"+t.name+"</p><span>"+t.structure.length+" частей</span>";d.onclick=()=>{currentType=k;document.querySelectorAll(".template-card").forEach(x=>x.classList.remove("active"));d.classList.add("active");render()};c.appendChild(d)});document.getElementById("formatBtns").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;currentFormat=b.dataset.val;document.querySelectorAll("#formatBtns button").forEach(x=>x.classList.remove("btn-active"));b.classList.add("btn-active");render()});document.getElementById("topic").addEventListener("change",render);render()}
+function render(){const t=TEMPLATES[currentType],topic=document.getElementById("topic").value,fl=currentFormat==="reels"?"Instagram Reels":currentFormat==="carousel"?"Карусель":"YouTube Shorts",si=currentFormat==="carousel"?"5-7 слайдов":"15-30 сек";document.getElementById("output").textContent="=== "+fl+" ===\nТип: "+t.name+"\nТема: "+topic+"\nФормат: "+si+"\n\n--- СТРУКТУРА ---\n"+t.structure.map((s,i)=>(i+1)+". "+s).join("\n")+"\n\n--- ПРИМЕР ЗАПОЛНЕНИЯ ---\n"+t.example.join("\n\n")+"\n\n--- ГОТОВЫЙ ТЕКСТ ---\n"+(currentFormat==="carousel"?t.example.map((s,i)=>"Слайд "+(i+1)+": "+s).join("\n"):t.example.join(" → "))}
+function copyOutput(){navigator.clipboard.writeText(document.getElementById("output").textContent).then(()=>{const b=document.querySelector(".copy-btn");b.textContent="Скопировано!";setTimeout(()=>b.textContent="Копировать",2000)})}
+init();
+</script>
+</body>
+</html>
