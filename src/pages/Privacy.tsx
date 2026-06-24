@@ -92,7 +92,7 @@ export default function Privacy() {
               <br />
               Email: privacy@spectrmind.ru
               <br />
-              ИП Иванов И.И., ИНН 000000000000
+              Дороненко В.С., ИНН 463245967103
             </p>
           </section>
         </div>
