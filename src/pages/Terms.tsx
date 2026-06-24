@@ -110,6 +110,8 @@ export default function Terms() {
               <br />
               ИНН: 463245967103
               <br />
+              Телефон: +7 (4712) 909-23-78, 098
+              <br />
               Email: support@spectrmind.ru
             </p>
           </section>

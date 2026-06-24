@@ -13,10 +13,8 @@ const footerLinks = {
     { label: 'Согласие на обработку ПДн', href: '/privacy' },
   ],
   social: [
-    { label: 'Telegram', href: '#' },
-    { label: 'Instagram', href: '#' },
-    { label: 'YouTube', href: '#' },
-    { label: 'VK', href: '#' },
+    { label: 'Instagram', href: 'https://www.instagram.com/spectrmind.ru/' },
+    { label: 'VK', href: 'https://vk.com/spectrmind' },
   ],
 };
 
