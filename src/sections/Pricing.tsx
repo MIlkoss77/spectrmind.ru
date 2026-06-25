@@ -19,7 +19,7 @@ const tiers = [
       'Протокол №5: НЛП и инженерия аффирмаций',
     ],
     cta: 'Купить базу',
-    link: 'https://link.payform.ru/?paymentLinkId=51dfe676-f03c-436b-8048-2a71a7733a48',
+    link: 'https://auth.robokassa.ru/merchant/Invoice/aPxIEen9uUyL7Sa_lUcupA',
     popular: false,
   },
   {
@@ -37,7 +37,7 @@ const tiers = [
       'Комьюнити единомышленников',
     ],
     cta: 'Купить доступ в клуб',
-    link: 'https://link.payform.ru/?paymentLinkId=727f3982-d6bc-4241-a86e-615684dcdcbc',
+    link: 'https://auth.robokassa.ru/merchant/Invoice/9RUnMG05ekKAxwD3G_MkBw',
     popular: false,
   },
   {
@@ -53,7 +53,7 @@ const tiers = [
       'Бесплатная сессия с психологом',
     ],
     cta: 'Купить базу + клуб',
-    link: 'https://link.payform.ru/?paymentLinkId=e27a671d-1b4f-4d1f-8d25-41fddb4fbe31',
+    link: 'https://auth.robokassa.ru/merchant/Invoice/yWJU5lXP10uGFoQsSjB-Yg',
     popular: false,
   },
   {
@@ -73,7 +73,7 @@ const tiers = [
       'Ранний доступ ко всем новым продуктам',
     ],
     cta: 'Разблокировать Нейро-Мастера',
-    link: 'https://link.payform.ru/?paymentLinkId=003bf0aa-88e4-4f27-9ff7-b9ab55cb7b72',
+    link: 'https://auth.robokassa.ru/merchant/Invoice/4titb2WymUi81s0XwwfCqQ',
     popular: true,
   },
 ];
