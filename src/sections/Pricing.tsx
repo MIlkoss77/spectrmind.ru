@@ -168,7 +168,7 @@ function Countdown() {
 export default function Pricing() {
   const handlePayment = async (tierId: string) => {
     try {
-      const res = await fetch('http://localhost:3001/api/create-payment', {
+      const res = await fetch('/api/create-payment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ tier: tierId })
