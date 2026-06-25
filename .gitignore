@@ -5,3 +5,6 @@
 
 script-generator.html
 post-generator.html
+
+server/node_modules
+server/.env

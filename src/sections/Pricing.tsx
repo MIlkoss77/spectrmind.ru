@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 
 const tiers = [
   {
+    id: 'neuro-hacker',
     name: 'Нейро-Хакер',
     nameEn: 'НЕЙРО-ХАКЕР',
     price: '1 990',
@@ -19,10 +20,10 @@ const tiers = [
       'Протокол №5: НЛП и инженерия аффирмаций',
     ],
     cta: 'Купить базу',
-    link: 'https://auth.robokassa.ru/merchant/Invoice/9H2zTxwWq0i1UWT3n4YcLg',
     popular: false,
   },
   {
+    id: 'spectr-club',
     name: 'SPECTR CLUB',
     nameEn: 'SPECTR CLUB',
     price: '990',
@@ -37,10 +38,10 @@ const tiers = [
       'Комьюнити единомышленников',
     ],
     cta: 'Купить доступ в клуб',
-    link: 'https://auth.robokassa.ru/merchant/Invoice/Xa_NM7Wws0iiXoxpr7kYHQ',
     popular: false,
   },
   {
+    id: 'base-club',
     name: 'База + 1 неделя клуба',
     nameEn: 'БАЗА + КЛУБ',
     price: '2 490',
@@ -53,10 +54,10 @@ const tiers = [
       'Бесплатная сессия с психологом',
     ],
     cta: 'Купить базу + клуб',
-    link: 'https://auth.robokassa.ru/merchant/Invoice/pA9kp0ASPkSnaEqSYYnC3g',
     popular: false,
   },
   {
+    id: 'neuro-master',
     name: 'Нейро-Мастер',
     nameEn: 'НЕЙРО-МАСТЕР',
     price: '9 990',
@@ -73,7 +74,6 @@ const tiers = [
       'Ранний доступ ко всем новым продуктам',
     ],
     cta: 'Разблокировать Нейро-Мастера',
-    link: 'https://auth.robokassa.ru/merchant/Invoice/LXtKkPgqkUmw3udN0EsB9A',
     popular: true,
   },
 ];
@@ -117,10 +117,44 @@ function Countdown() {
       });
     }, 1000);
 
-    return () => clearInterval(timer);
+    const handlePayment = async (tierId: string) => {
+    try {
+      const res = await fetch('http://localhost:3001/api/create-payment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tier: tierId })
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      }
+    } catch (err) {
+      console.error('Payment error:', err);
+      alert('Ошибка при создании платежа. Попробуйте позже.');
+    }
+  };
+
+  return () => clearInterval(timer);
   }, []);
 
   const formatTime = (value: number) => String(value).padStart(2, '0');
+
+  const handlePayment = async (tierId: string) => {
+    try {
+      const res = await fetch('http://localhost:3001/api/create-payment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tier: tierId })
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      }
+    } catch (err) {
+      console.error('Payment error:', err);
+      alert('Ошибка при создании платежа. Попробуйте позже.');
+    }
+  };
 
   return (
     <div className="text-center mb-12">
@@ -166,6 +200,23 @@ function Countdown() {
 }
 
 export default function Pricing() {
+  const handlePayment = async (tierId: string) => {
+    try {
+      const res = await fetch('http://localhost:3001/api/create-payment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tier: tierId })
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      }
+    } catch (err) {
+      console.error('Payment error:', err);
+      alert('Ошибка при создании платежа. Попробуйте позже.');
+    }
+  };
+
   return (
     <section
       id="pricing"
@@ -338,7 +389,24 @@ export default function Pricing() {
         >
           {trustBadges.map((badge) => {
             const Icon = badge.icon;
-            return (
+            const handlePayment = async (tierId: string) => {
+    try {
+      const res = await fetch('http://localhost:3001/api/create-payment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tier: tierId })
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      }
+    } catch (err) {
+      console.error('Payment error:', err);
+      alert('Ошибка при создании платежа. Попробуйте позже.');
+    }
+  };
+
+  return (
               <div key={badge.text} className="flex items-center gap-2 text-txt-muted">
                 <Icon size={16} className="text-spectr-cyan" />
                 <span className="text-xs font-mono">{badge.text}</span>
