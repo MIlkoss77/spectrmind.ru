@@ -117,44 +117,10 @@ function Countdown() {
       });
     }, 1000);
 
-    const handlePayment = async (tierId: string) => {
-    try {
-      const res = await fetch('http://localhost:3001/api/create-payment', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ tier: tierId })
-      });
-      const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url;
-      }
-    } catch (err) {
-      console.error('Payment error:', err);
-      alert('Ошибка при создании платежа. Попробуйте позже.');
-    }
-  };
-
-  return () => clearInterval(timer);
+    return () => clearInterval(timer);
   }, []);
 
   const formatTime = (value: number) => String(value).padStart(2, '0');
-
-  const handlePayment = async (tierId: string) => {
-    try {
-      const res = await fetch('http://localhost:3001/api/create-payment', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ tier: tierId })
-      });
-      const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url;
-      }
-    } catch (err) {
-      console.error('Payment error:', err);
-      alert('Ошибка при создании платежа. Попробуйте позже.');
-    }
-  };
 
   return (
     <div className="text-center mb-12">
@@ -222,7 +188,6 @@ export default function Pricing() {
       id="pricing"
       className="relative py-24 sm:py-32 px-4 sm:px-6 lg:px-8 bg-deep-space overflow-hidden"
     >
-      {/* Background glow */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -232,7 +197,6 @@ export default function Pricing() {
       />
 
       <div className="relative max-w-5xl mx-auto">
-        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -251,7 +215,6 @@ export default function Pricing() {
           </p>
         </motion.div>
 
-        {/* Countdown Timer */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -261,7 +224,6 @@ export default function Pricing() {
           <Countdown />
         </motion.div>
 
-        {/* Pricing Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
           {tiers.map((tier, i) => (
             <motion.div
@@ -278,7 +240,6 @@ export default function Pricing() {
               }`}
               style={{ borderRadius: '0px' }}
             >
-              {/* Popular Badge */}
               {tier.popular && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                   <Badge className="bg-spectr-cyan text-black font-mono text-xs px-3 py-1 tracking-wider hover:bg-spectr-electric">
@@ -288,7 +249,6 @@ export default function Pricing() {
                 </div>
               )}
 
-              {/* Neon Glow Discount Badge */}
               {tier.popular && (
                 <div
                   className="absolute -top-3 -right-3"
@@ -309,7 +269,6 @@ export default function Pricing() {
                 </div>
               )}
 
-              {/* Glowing top border for popular */}
               {tier.popular && (
                 <div
                   className="absolute top-0 left-0 right-0 h-px"
@@ -320,7 +279,6 @@ export default function Pricing() {
                 />
               )}
 
-              {/* Tier Name */}
               <p className="font-mono text-xs tracking-wider text-txt-muted mb-1">
                 {tier.nameEn}
               </p>
@@ -329,7 +287,6 @@ export default function Pricing() {
               </h3>
               <p className="text-sm text-txt-secondary mb-6">{tier.description}</p>
 
-              {/* Price */}
               <div className="mb-6">
                 <div className="flex items-baseline gap-2 mb-2">
                   <span className="font-mono text-lg text-txt-muted line-through">
@@ -346,7 +303,6 @@ export default function Pricing() {
                 </div>
               </div>
 
-              {/* Features */}
               <ul className="space-y-3 mb-8">
                 {tier.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-3">
@@ -361,12 +317,9 @@ export default function Pricing() {
                 ))}
               </ul>
 
-              {/* CTA */}
-              <a
-                href={tier.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`block w-full py-3.5 font-heading font-semibold text-sm text-center rounded transition-all duration-300 ${
+              <button
+                onClick={() => handlePayment(tier.id)}
+                className={`block w-full py-3.5 font-heading font-semibold text-sm text-center rounded transition-all duration-300 cursor-pointer ${
                   tier.popular
                     ? 'bg-spectr-cyan text-black hover:bg-spectr-electric hover:shadow-glow-strong'
                     : 'border border-white/20 text-txt-primary hover:border-spectr-cyan hover:text-spectr-cyan'
@@ -374,12 +327,11 @@ export default function Pricing() {
                 style={{ borderRadius: '4px' }}
               >
                 {tier.cta}
-              </a>
+              </button>
             </motion.div>
           ))}
         </div>
 
-        {/* Trust Badges */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -389,24 +341,7 @@ export default function Pricing() {
         >
           {trustBadges.map((badge) => {
             const Icon = badge.icon;
-            const handlePayment = async (tierId: string) => {
-    try {
-      const res = await fetch('http://localhost:3001/api/create-payment', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ tier: tierId })
-      });
-      const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url;
-      }
-    } catch (err) {
-      console.error('Payment error:', err);
-      alert('Ошибка при создании платежа. Попробуйте позже.');
-    }
-  };
-
-  return (
+            return (
               <div key={badge.text} className="flex items-center gap-2 text-txt-muted">
                 <Icon size={16} className="text-spectr-cyan" />
                 <span className="text-xs font-mono">{badge.text}</span>
@@ -415,7 +350,6 @@ export default function Pricing() {
           })}
         </motion.div>
 
-        {/* Payment Methods */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
