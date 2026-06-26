@@ -80,12 +80,12 @@ function generateSignature(outSum, invId, receipt) {
 }
 
 function verifyCallbackSignature(params) {
-  var outSum = params.OutSum || params.outSum;
-  var invId = params.InvId || params.invId;
-  var receipt = params.Receipt || params.receipt || '';
-  var signString = MERCHANT_LOGIN + ':' + outSum + ':' + invId + ':' + receipt + ':' + PASSWORD_2;
+  var outSum = params.OutSum || params.outSum || '';
+  var invId = params.InvId || params.invId || '';
+  var signString = outSum + ':' + invId + ':' + PASSWORD_2;
   var expectedSign = crypto.createHash('md5').update(signString).digest('hex').toUpperCase();
-  var receivedSign = (params.SignatureValue || params.signatureValue || '').toUpperCase();
+  var receivedSign = (params.SignatureValue || params.signatureValue || params.crc || '').toUpperCase();
+  console.log('Expected sign:', expectedSign, 'Received:', receivedSign);
   return expectedSign === receivedSign;
 }
 
