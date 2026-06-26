@@ -140,15 +140,33 @@ app.post('/api/payment-callback', async function(req, res) {
 
     var invId = (req.body.InvId || req.body.invId || '').toString();
     var email = req.body.Email || req.body.email || '';
-    var order = orders.get(invId);
+    var outSum = parseFloat(req.body.OutSum || req.body.out_summ || '0');
 
+    var order = orders.get(invId);
     if (order) {
       order.email = email;
       order.status = 'paid';
     }
 
-    if (email && order) {
-      await sendProductEmail(email, order.tier);
+    var tier = null;
+    if (order) {
+      tier = order.tier;
+    } else {
+      for (var key in PRODUCTS) {
+        if (Math.abs(PRODUCTS[key].sum - outSum) < 0.01) {
+          tier = key;
+          break;
+        }
+      }
+    }
+
+    console.log('Resolved tier:', tier, 'Email:', email);
+
+    if (email && tier) {
+      await sendProductEmail(email, tier);
+      console.log('Email sent successfully');
+    } else {
+      console.log('Skipping email: email=' + email + ' tier=' + tier);
     }
 
     res.send('OK');
