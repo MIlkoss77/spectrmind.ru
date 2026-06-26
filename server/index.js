@@ -139,7 +139,7 @@ app.post('/api/payment-callback', async function(req, res) {
     }
 
     var invId = (req.body.InvId || req.body.invId || '').toString();
-    var email = req.body.Email || req.body.email || '';
+    var email = req.body.EMail || req.body.Email || req.body.email || '';
     var outSum = parseFloat(req.body.OutSum || req.body.out_summ || '0');
 
     var order = orders.get(invId);
