@@ -24,7 +24,8 @@ const PRODUCTS = {
   'neuro-hacker': { name: 'Нейро-Хакер', sum: 1990, description: 'Доступ к базе протоколов' },
   'spectr-club': { name: 'SPECTR CLUB', sum: 990, description: 'Подписка на клуб (1 месяц)' },
   'base-club': { name: 'База + 1 неделя клуба', sum: 2490, description: 'Доступ к базе + пробный клуб' },
-  'neuro-master': { name: 'Нейро-Мастер', sum: 9990, description: 'Максимальный пакет' }
+  'neuro-master': { name: 'Нейро-Мастер', sum: 9990, description: 'Максимальный пакет' },
+  'test': { name: 'Тестовый товар', sum: 1, description: 'Тест оплаты' }
 };
 
 const LINKS = {
@@ -49,6 +50,10 @@ const EMAIL_TEMPLATES = {
   'neuro-master': {
     subject: 'SPECTRMIND — Нейро-Мастер: полный доступ',
     html: '<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:30px;background:#0A0A0F;color:#fff;border-radius:12px"><div style="text-align:center;margin-bottom:30px"><h1 style="color:#00FFFF;font-size:28px;margin:0">SPECTRMIND</h1></div><div style="background:linear-gradient(135deg,#00FFFF,#A855F7);padding:3px;border-radius:12px"><div style="background:#13131A;padding:30px;border-radius:10px"><h2 style="color:#00FFFF;text-align:center;margin-top:0;font-size:22px">Поздравляем!</h2><p style="text-align:center;color:#A0A0B0;font-size:16px">Вы получили максимальный пакет. Это ваш путь к пиковой когнитивной производительности.</p><div style="background:#1C1C24;padding:20px;border-radius:8px;margin:25px 0;text-align:center"><p style="color:#6B6B7B;font-size:12px;margin:0 0 10px 0;text-transform:uppercase;letter-spacing:0.1em">1. PDF-гайд с протоколами</p><a href="' + LINKS.drive + '" style="display:inline-block;background:#00FFFF;color:#000;padding:14px 32px;text-decoration:none;border-radius:6px;font-weight:bold;font-size:16px">Открыть гайд</a></div><div style="background:#1C1C24;padding:20px;border-radius:8px;margin:25px 0;text-align:center"><p style="color:#6B6B7B;font-size:12px;margin:0 0 10px 0;text-transform:uppercase;letter-spacing:0.1em">2. SPECTR CLUB (3 месяца)</p><a href="' + LINKS.telegram + '" style="display:inline-block;background:#A855F7;color:#fff;padding:14px 32px;text-decoration:none;border-radius:6px;font-weight:bold;font-size:16px">Вступить в канал</a></div><div style="background:#1C1C24;padding:20px;border-radius:8px;margin:25px 0;text-align:center"><p style="color:#6B6B7B;font-size:12px;margin:0 0 10px 0;text-transform:uppercase;letter-spacing:0.1em">3. Запись на персональные сессии</p><p style="color:#A0A0B0;font-size:14px;margin:0 0 15px 0">2 сессии с нейропсихологом (60 мин). Напишите менеджеру для записи:</p><a href="' + LINKS.manager + '" style="display:inline-block;background:linear-gradient(135deg,#00FFFF,#A855F7);color:#000;padding:14px 32px;text-decoration:none;border-radius:6px;font-weight:bold;font-size:16px">Записаться на сессию</a></div></div></div></div>'
+  },
+  'test': {
+    subject: 'SPECTRMIND — Тест оплаты прошёл успешно!',
+    html: '<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:30px;background:#0A0A0F;color:#fff;border-radius:12px"><div style="text-align:center;margin-bottom:30px"><h1 style="color:#00FFFF;font-size:28px;margin:0">SPECTRMIND</h1></div><div style="background:linear-gradient(135deg,#00FFFF,#A855F7);padding:3px;border-radius:12px"><div style="background:#13131A;padding:30px;border-radius:10px"><h2 style="color:#00FFFF;text-align:center;margin-top:0;font-size:22px">Тест оплаты прошёл!</h2><p style="text-align:center;color:#A0A0B0;font-size:16px">Система работает корректно. Автоматическая выдача товаров настроена.</p><div style="background:#1C1C24;padding:20px;border-radius:8px;margin:25px 0;text-align:center"><p style="color:#00FF00;font-size:14px;margin:0">✓ Оплата принята</p><p style="color:#00FF00;font-size:14px;margin:10px 0 0 0">✓ Callback получен</p><p style="color:#00FF00;font-size:14px;margin:10px 0 0 0">✓ Email отправлен</p></div></div></div></div>'
   }
 };
 
